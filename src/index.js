@@ -22,6 +22,22 @@ const PORT = process.env.PORT || 5555;
 app.use(express.json({ limit: '5mb' }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+app.get('/config.js', (req, res) => {
+  const config = {
+    apiKey: process.env.FIREBASE_WEB_API_KEY,
+    authDomain: process.env.FIREBASE_WEB_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_WEB_PROJECT_ID,
+    databaseURL: process.env.FIREBASE_WEB_DATABASE_URL,
+    storageBucket: process.env.FIREBASE_WEB_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_WEB_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_WEB_APP_ID,
+    measurementId: process.env.FIREBASE_WEB_MEASUREMENT_ID
+  };
+
+  res.type('application/javascript');
+  res.send(`window.firebaseConfig = ${JSON.stringify(config)};`);
+});
+
 app.get('/api/status', requireAuth, async (req, res) => {
   const [statsSnap, schedSnap, datasetSnap] = await Promise.all([
     db.ref('stats').once('value'),
