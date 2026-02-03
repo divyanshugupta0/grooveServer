@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: fireflygroove-server
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    disk:
+      name: dataset
+      mountPath: /data
+      sizeGB: 10
+    envVars:
+      - key: NODE_VERSION
+        value: "18"
+      - key: FIREBASE_DATABASE_URL
+        sync: false
+      - key: FIREBASE_SERVICE_ACCOUNT
+        value: serviceAccount.json
+      - key: ADMIN_EMAILS
+        sync: false
+      - key: RUN_INTERVAL_MINUTES
+        value: "360"
+      - key: MAX_SONGS_PER_RUN
+        value: "50"
+      - key: AUDIO_CHUNK_SIZE
+        value: "150000"
+      - key: IMAGE_CHUNK_SIZE
+        value: "120000"
+      - key: CSV_DATASET_PATH
+        value: "/data/dataset.csv"
+      - key: CSV_DATASET_URL
+        sync: false
+      - key: DATASET_BATCH_SIZE
+        value: "30"
+      - key: DATASET_PROGRESS_EVERY
+        value: "5"
+      - key: JIOSAAVN_API
+        value: "https://jiosaavn-api-privatecvc2.vercel.app"
+      - key: JAMENDO_API
+        value: "https://api.jamendo.com/v3.0"
+      - key: JAMENDO_CLIENT_ID
+        sync: false

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firefly Groove Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-bar">
+      <div>
+        <p class="eyebrow">Firefly Groove</p>
+        <h1>Server Control Room</h1>
+      </div>
+      <div class="top-actions">
+        <button id="logout-btn" class="ghost">Log out</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="login-view" class="card login-card">
+        <h2>Admin Sign In</h2>
+        <p>Use your Firebase admin email to access the scheduler controls.</p>
+        <form id="login-form">
+          <label>Email</label>
+          <input type="email" id="login-email" required />
+          <label>Password</label>
+          <input type="password" id="login-password" required />
+          <button type="submit">Sign in</button>
+          <p id="login-error" class="error"></p>
+        </form>
+      </section>
+
+      <section id="dashboard" class="hidden">
+        <div class="grid">
+          <div class="card">
+            <h2>Scheduler</h2>
+            <div class="status-row">
+              <span id="scheduler-pill" class="status-pill stopped">Stopped</span>
+            </div>
+            <div id="status-box" class="status-box">Loading status...</div>
+            <div class="btn-row">
+              <button id="run-now">Run now</button>
+              <button id="start-scheduler" class="ghost">Start</button>
+              <button id="stop-scheduler" class="ghost">Stop</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Dataset</h2>
+            <div id="dataset-status" class="status-box">Loading dataset...</div>
+            <div class="progress">
+              <div id="dataset-progress-bar" class="progress-bar"></div>
+            </div>
+            <div id="dataset-progress-label" class="progress-label">Progress: --</div>
+            <div class="btn-row">
+              <button id="dataset-import">Import batch</button>
+              <button id="dataset-resume" class="ghost">Resume from last row</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Fetch Queries</h2>
+            <form id="query-form" class="stack">
+              <input id="query-text" placeholder="Query text" required />
+              <input id="query-categories" placeholder="Categories (comma separated)" />
+              <label class="checkbox">
+                <input type="checkbox" id="query-force-desi" />
+                Force Desi only
+              </label>
+              <button type="submit">Add query</button>
+            </form>
+            <div id="queries-list" class="list"></div>
+          </div>
+
+          <div class="card">
+            <h2>Categories</h2>
+            <div id="categories-list" class="list"></div>
+          </div>
+
+          <div class="card">
+            <h2>Recent Songs</h2>
+            <div id="songs-list" class="list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
